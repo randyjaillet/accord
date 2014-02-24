@@ -12,8 +12,8 @@ Usage
 
 * Include the jQuery and accordionate scripts:
   ```
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="js/accordionate-1.21.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="js/accordionate-1.00.min.js"></script>
   ```
 * Initialize `accordionate()` on a common ancestor of the accordion panels:
   ```
