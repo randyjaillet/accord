@@ -36,15 +36,14 @@
 */
 
 $.fn.accordionate = function(options) {
- 
+
     /* ----- Settings ----- */
 
     var defaultOptions = {
         independentPanels: true, // bool: Set to false to force closing other panels when one is activated.
         autoScroll: true, // bool: Set to false to disable automatic scrolling to activated panels.
         activeClass: "active", // str: The class that is applied to activated items. Not a full selector, so do not include a dot (.).
-        generatedTogglerClass: "toggler", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
-        itemStateIndicator: "<span class=\"indicator\"></span>", // str: HTML to be injected into the generated togglers. Typically used to display arrows or plus/minus signs indicating activated/deactivated states.
+        togglerClass: "toggler", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
         itemSelector: "li", // str: Selector of the parent wrapper of each accordion section. Should be a full selector, ie, ".accordionItem" or "ul > li". This selector will only be used within the context of the individual accordion.
         headingSelector: ".heading", // str: Selector of the panel heading into which the generated togglers will be injected. Should be a full selector, ie, ".injectionTarget" or "li > h3". This selector will only be used within the context of the individual accordion.
         panelSelector: ".panel", // str: Selector of the area to be revealed/hidden. Should be a full selector, ie, ".collapsibleRegion" or "h3 + div". This selector will only be used within the context of the individual accordion.
@@ -58,40 +57,81 @@ $.fn.accordionate = function(options) {
 
     /* ----- The magic ----- */
 
-    return this.each(function() {
+    return this.each(
+    	function() {
 
-        var $toggler = createToggler();
+			// Attach handler for the toggler clicks. We'll use event delegation since the
+			// togglers may be dynamically injected; plus, with ED, we only have to do this
+			// once per accordion rather than per accordion item.
+		    $(this).on(
+			    "click",
+			    $("." + settings.togglerClass),
+			    function(e) {
+	                e.preventDefault();
+	
+	                // The parent item that wraps both the toggler and
+	                // the panel. This is what we attach the active state to.
+	                var $parentItem = $(e.target).closest(settings.itemSelector);
+	
+	                // item is active ? deactivate it : activate it.
+	                if ($parentItem.hasClass(settings.activeClass)) {
+	                    deactivateItems($parentItem);
+	                } else {
+	                    activateItems($parentItem);
+	
+	                    // If the independentPanels setting is set to false,
+	                    // we need to close any currently open panels.
+	                    if (!settings.independentPanels) {
+	                        var $itemsToDeactivate = $parentItem
+	                                .siblings(settings.itemSelector)
+	                                .filter("." + activeClass);
+	                        deactivateItems($itemsToDeactivate);
+	                    }
+	                }
+	            }
+		    );
 
-        // Wrap the contents of each "heading" with
-        // the newly created toggler A, then append
-        // the optional item state indicator to the
-        // A.
-        $(settings.headingSelector, this).each(function(i,e) {
-            $(e)
-                    .wrapInner($toggler)
-                    .children("a").eq(0)
-                    .append(settings.itemStateIndicator);
-        });
+			// Make sure every accordion item has an anchor for toggling the panel
+			$(this).children(settings.itemSelector).each(
+				function (i,e) {
 
-    });
+					var existingAnchor = $(settings.headingSelector, this).children("a");
+
+					// If the panel heading is already linked, go ahead and use the existing
+					// anchor, adding the togglerClass if necessary.
+					// Otherwise, create and inject one ourselves.
+					if (existingAnchor.length) {
+						if (!existingAnchor.hasClass(settings.togglerClass)) {
+							existingAnchor.addClass(settings.togglerClass);
+						}
+					} else {
+			            $(settings.headingSelector, this).wrapInner(createToggler());
+				    }
+				   
+				}
+				
+			);
+
+    	}
+    );
 
 
 
-    /* ----- Hoisted helper functions ----- */
+    /* ----- Helpers  ----- */
 
-    function activateItems($items) {
+    function activateItems ($items) {
         $items.addClass(settings.activeClass);
         var $panelsToShow = getPanelsByItems($items);
         showPanels($panelsToShow);
     }
 
-    function deactivateItems($items) {
+    function deactivateItems ($items) {
         $items.removeClass(settings.activeClass);
         var $panelsToHide = getPanelsByItems($items);
         hidePanels($panelsToHide);
     }
 
-    function showPanels($panels) {
+    function showPanels ($panels) {
         $panels.slideDown(function() {
             if (settings.autoScroll) {
                 scrollToPanel($panels.eq(0));
@@ -99,39 +139,14 @@ $.fn.accordionate = function(options) {
         });
     };
 
-    function hidePanels($panels) {
+    function hidePanels ($panels) {
         $panels.slideUp();
     };
 
     function createToggler() {
         return $("<a></a>", {
             href: "#",
-            class: settings.generatedTogglerClass,
-            on: {
-                click: function(e) {
-                    e.preventDefault();
-
-                    // The parent item that wraps both the toggler and
-                    // the panel. This is what we attach the active state to.
-                    var $parentItem = $(this).closest(settings.itemSelector);
-
-                    // item is active ? deactivate it : activate it.
-                    if ($parentItem.hasClass(settings.activeClass)) {
-                        deactivateItems($parentItem);
-                    } else {
-                        activateItems($parentItem);
-
-                        // If the independentPanels setting is set to false,
-                        // we need to close any currently open panels.
-                        if (!settings.independentPanels) {
-                            var $itemsToDeactivate = $parentItem
-                                    .siblings(settings.itemSelector)
-                                    .filter("." + activeClass);
-                            deactivateItems($itemsToDeactivate);
-                        }
-                    }
-                }
-            }
+            class: settings.togglerClass
         });
     };
 
