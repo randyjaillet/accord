@@ -11,11 +11,14 @@ Usage
 ###Includes
 
 * Include the jQuery and accordionate scripts:
+
   ```
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="js/jquery.accordionate.js"></script>
   ```
+
 * Initialize `accordionate()` on the parent of the accordion panels:
+
   ```
   $(".accordion").accordionate();
   ```
