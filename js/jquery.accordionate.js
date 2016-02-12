@@ -1,12 +1,14 @@
 /* RJ 2.14.2014
 ** 
 ** Turns an element into an accordion with sections that hide and reveal when 
-** corresponding togglers are clicked. Supports multiple accordions per page.
-** Supports customization of element selectors. Element selectors are relative
-** to the object .accordionate() is called on. .accordionate should be called
-** on a parent container of the accordion elements.
+** corresponding togglers are clicked.
 ** 
-** Options are explained inline with default options below.
+** Element selectors are relative to the element .accordionate() is initialized on
+** and will not match descendants within the panels, only direct children.
+**
+** .accordionate should be called on a parent container of the accordion elements.
+** 
+** Options are explained inline below.
 ** 
 ** Default option set expects the following markup structure:
 **
@@ -95,10 +97,10 @@ $.fn.accordionate = function(options) {
 			$(this).children(settings.itemSelector).each(
 				function (i,e) {
 
-					var existingAnchor = $(settings.headingSelector, this).children("a");
+					var existingAnchor = $(this).children(settings.headingSelector).children("a");
 
-					// If the panel heading is already linked, go ahead and use the existing
-					// anchor, adding the togglerClass if necessary.
+					// If the panel heading is already linked, go ahead and use the
+					// existing anchor, adding the togglerClass if necessary.
 					// Otherwise, create and inject one ourselves.
 					if (existingAnchor.length) {
 						if (!existingAnchor.hasClass(settings.togglerClass)) {
@@ -155,9 +157,27 @@ $.fn.accordionate = function(options) {
     };
 
     function scrollToPanel($panel) {
-        $('html, body').stop().animate({
-            scrollTop: $panel.offset().top - $(window).height() * .1
-        }, 750);
+
+	    // Stop the automatic scroll effect if user scrolls
+	    // manually to avoid an epic battle of wills between
+	    // user and scrollbar (and an upleasant stutter)
+        $('html, body').on(
+	        "scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove",
+	        function (e) {
+		        $('html, body').stop();
+	        }
+        );
+
+        $('html, body').stop().animate(
+	        {
+	            scrollTop: $panel.offset().top - $(window).height() * .1
+	        },
+	        750,
+	        function () {
+		        $('html, body').off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+	        }
+        );
+
     };
  
 };
