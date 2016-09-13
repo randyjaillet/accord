@@ -78,7 +78,7 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
 }
 .accordion > li > h3 a {
   display: block;
-  padding: 20px 0;
+  padding: 20px 10px;
   color: #4a90e2;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -90,7 +90,7 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
   display: block;
   content: ' ';
   position: absolute;
-  right: 0;
+  right: 10px;
   height: 0;
   width: 0;
   font-size: 0;
