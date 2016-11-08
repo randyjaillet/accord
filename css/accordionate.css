@@ -71,14 +71,14 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
   margin: 0;
   padding: 0;
 }
-.accordion > li > h3 {
+.accordion > li > .aHeading {
   position: relative;
   margin: 0;
   font-weight: 100;
 }
-.accordion > li > h3 a {
+.accordion > li > .aHeading a {
   display: block;
-  padding: 20px 10px;
+  padding: 20px 30px 20px 10px;
   color: #4a90e2;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -86,7 +86,7 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
   -ms-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-.accordion > li > h3 a:after {
+.accordion > li > .aHeading a:after {
   display: block;
   content: ' ';
   position: absolute;
@@ -111,8 +111,8 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
   transition: all 0.1s linear;
   top: 45%;
 }
-.accordion > li > h3 a:focus,
-.accordion > li > h3 a:hover {
+.accordion > li > .aHeading a:focus,
+.accordion > li > .aHeading a:hover {
   background: rgba(74,144,226,0.05);
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -123,8 +123,8 @@ THIS FILE IS COMPILED. EDIT THE ORIGINAL STYLUS FILE IN SRC/, NOT THIS!!
 .accordion > li + li > h3 {
   border-top: 1px solid #ddd;
 }
-.accordion > li > .panel {
-  padding: 20px 0;
+.accordion > li > .aPanel {
+  padding: 20px 10px;
 }
 .accordion > li.active > h3 a {
   color: #000;

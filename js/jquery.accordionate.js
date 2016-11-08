@@ -12,86 +12,85 @@
 ** 
 ** Default option set expects the following markup structure:
 **
-**      .accordion
-**          li
-**              .heading
-**              .panel
-**          li
-**              .heading
-**              .panel
+**		.accordion
+**			li
+**				.aHeading
+**				.aPanel
 **
 ** Example with customized class names and selectors:
 **
-**      #expandocollapser
-**          section
-**              h3
-**              div
-**          section
-**              h3
-**              div
+**		#expandocollapser
+**			section
+**				h3
+**				div
+**			section
+**				h3
+**				div
 ** 
-**      $("#expandocollapser").accordionate({
-**          itemSelector: "section",
-**          headingSelector: "h3"
-**          panelSelector: "h3 + div",
-**      });
+**		$("#expandocollapser").accordionate(
+**			{
+**				itemSelector: "section",
+**				headingSelector: "h3",
+**				panelSelector: "h3 + div"
+**	   		}
+**		);
 */
 
 $.fn.accordionate = function(options) {
 
-    /* ----- Settings ----- */
+	/* ----- Settings ----- */
 
-    var defaultOptions = {
-        independentPanels: true, // bool: Set to false to force closing other panels when one is activated.
-        autoScroll: true, // bool: Set to false to disable automatic scrolling to activated panels.
-        activeClass: "active", // str: The class that is applied to activated items. Not a full selector, so do not include a dot (.).
-        togglerClass: "toggler", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
-        itemSelector: "li", // str: Selector of the parent wrapper of each accordion section. Should be a full selector, ie, ".accordionItem" or "ul > li". This selector will only be used within the context of the individual accordion.
-        headingSelector: ".heading", // str: Selector of the panel heading into which the generated togglers will be injected. Should be a full selector, ie, ".injectionTarget" or "li > h3". This selector will only be used within the context of the individual accordion.
-        panelSelector: ".panel", // str: Selector of the area to be revealed/hidden. Should be a full selector, ie, ".collapsibleRegion" or "h3 + div". This selector will only be used within the context of the individual accordion.
-    };
-    var settings = $.extend({}, defaultOptions, options);
+	var defaultOptions = {
+		independentPanels: true, // bool: Set to false to force closing other panels when one is activated.
+		autoScroll: true, // bool: Set to false to disable automatic scrolling to activated panels.
+		activeClass: "active", // str: The class that is applied to activated items. Not a full selector, so do not include a dot (.).
+		togglerClass: "toggler", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
+		itemSelector: "li", // str: Selector of the parent wrapper of each accordion section. Should be a full selector, ie, ".accordionItem" or "ul > li". This selector will only be used within the context of the individual accordion.
+		headingSelector: ".aHeading", // str: Selector of the panel heading into which the generated togglers will be injected. Should be a full selector, ie, ".injectionTarget" or "li > h3". This selector will only be used within the context of the individual accordion.
+		panelSelector: ".aPanel", // str: Selector of the area to be revealed/hidden. Should be a full selector, ie, ".collapsibleRegion" or "h3 + div". This selector will only be used within the context of the individual accordion.
+	};
+	var settings = $.extend({}, defaultOptions, options);
 
-    // Initialize: hide all panels.
-    $(settings.panelSelector, this).hide();
+	// Initialize: hide all panels.
+	$(settings.panelSelector, this).hide();
 
 
 
-    /* ----- The magic ----- */
+	/* ----- The magic ----- */
 
-    return this.each(
-    	function() {
+	return this.each(
+		function() {
 
 			// Attach handler for the toggler clicks. We'll use event delegation since the
 			// togglers may be dynamically injected; plus, with ED, we only have to do this
 			// once per accordion rather than per accordion item.
-		    $(this).on(
-			    "click",
-			    $("." + settings.togglerClass),
-			    function(e) {
-	                e.preventDefault();
+			  $(this).on(
+				   "click",
+				   $("." + settings.togglerClass),
+				   function(e) {
+					e.preventDefault();
 	
-	                // The parent item that wraps both the toggler and
-	                // the panel. This is what we attach the active state to.
-	                var $parentItem = $(e.target).closest(settings.itemSelector);
+					 // The parent item that wraps both the toggler and
+					 // the panel. This is what we attach the active state to.
+					 var $parentItem = $(e.target).closest(settings.itemSelector);
 	
-	                // item is active ? deactivate it : activate it.
-	                if ($parentItem.hasClass(settings.activeClass)) {
-	                    deactivateItems($parentItem);
-	                } else {
-	                    activateItems($parentItem);
+					 // item is active ? deactivate it : activate it.
+					 if ($parentItem.hasClass(settings.activeClass)) {
+						 deactivateItems($parentItem);
+					 } else {
+						 activateItems($parentItem);
 	
-	                    // If the independentPanels setting is set to false,
-	                    // we need to close any currently open panels.
-	                    if (!settings.independentPanels) {
-	                        var $itemsToDeactivate = $parentItem
-	                                .siblings(settings.itemSelector)
-	                                .filter("." + activeClass);
-	                        deactivateItems($itemsToDeactivate);
-	                    }
-	                }
-	            }
-		    );
+						 // If the independentPanels setting is set to false,
+						 // we need to close any currently open panels.
+						 if (!settings.independentPanels) {
+							 var $itemsToDeactivate = $parentItem
+									 .siblings(settings.itemSelector)
+									 .filter("." + activeClass);
+							 deactivateItems($itemsToDeactivate);
+						 }
+					 }
+				 }
+			  );
 
 			// Make sure every accordion item has an anchor for toggling the panel
 			$(this).children(settings.itemSelector).each(
@@ -107,77 +106,77 @@ $.fn.accordionate = function(options) {
 							existingAnchor.addClass(settings.togglerClass);
 						}
 					} else {
-			            $(settings.headingSelector, this).wrapInner(createToggler());
-				    }
+						   $(settings.headingSelector, this).wrapInner(createToggler());
+					}
 				   
 				}
 				
 			);
 
-    	}
-    );
+		}
+	);
 
 
 
-    /* ----- Helpers  ----- */
+	/* ----- Helpers  ----- */
 
-    function activateItems ($items) {
-        $items.addClass(settings.activeClass);
-        var $panelsToShow = getPanelsByItems($items);
-        showPanels($panelsToShow);
-    }
+	function activateItems ($items) {
+		$items.addClass(settings.activeClass);
+		var $panelsToShow = getPanelsByItems($items);
+		showPanels($panelsToShow);
+	}
 
-    function deactivateItems ($items) {
-        $items.removeClass(settings.activeClass);
-        var $panelsToHide = getPanelsByItems($items);
-        hidePanels($panelsToHide);
-    }
+	function deactivateItems ($items) {
+		$items.removeClass(settings.activeClass);
+		var $panelsToHide = getPanelsByItems($items);
+		hidePanels($panelsToHide);
+	}
 
-    function showPanels ($panels) {
-        $panels.slideDown(function() {
-            if (settings.autoScroll) {
-                scrollToPanel($panels.eq(0));
-            }
-        });
-    };
+	function showPanels ($panels) {
+		$panels.slideDown(function() {
+			if (settings.autoScroll) {
+				scrollToPanel($panels.eq(0));
+			}
+		});
+	};
 
-    function hidePanels ($panels) {
-        $panels.slideUp();
-    };
+	function hidePanels ($panels) {
+		$panels.slideUp();
+	};
 
-    function createToggler() {
-        return $("<a></a>", {
-            href: "#",
-            class: settings.togglerClass
-        });
-    };
+	function createToggler() {
+		return $("<a></a>", {
+			href: "#",
+			class: settings.togglerClass
+		});
+	};
 
-    function getPanelsByItems($items) {
-        return $items.find(settings.panelSelector);
-    };
+	function getPanelsByItems($items) {
+		return $items.find(settings.panelSelector);
+	};
 
-    function scrollToPanel($panel) {
+	function scrollToPanel($panel) {
 
-	    // Stop the automatic scroll effect if user scrolls
-	    // manually to avoid an epic battle of wills between
-	    // user and scrollbar (and an upleasant stutter)
-        $('html, body').on(
-	        "scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove",
-	        function (e) {
-		        $('html, body').stop();
-	        }
-        );
+		 // Stop the automatic scroll effect if user scrolls
+		 // manually to avoid an epic battle of wills between
+		 // user and scrollbar (and an upleasant stutter)
+		$('html, body').on(
+			 "scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove",
+			 function (e) {
+				  $('html, body').stop();
+			 }
+		);
 
-        $('html, body').stop().animate(
-	        {
-	            scrollTop: $panel.offset().top - $(window).height() * .1
-	        },
-	        750,
-	        function () {
-		        $('html, body').off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
-	        }
-        );
+		$('html, body').stop().animate(
+			 {
+				 scrollTop: $panel.offset().top - $(window).height() * .1
+			 },
+			 750,
+			 function () {
+				  $('html, body').off("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove");
+			 }
+		);
 
-    };
+	};
  
 };
