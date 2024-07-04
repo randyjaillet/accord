@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<h1 id="accordionate">Accordionate</h1>
+
+<p>A jQuery plugin for creating collapsible accordion structures.</p>
+
+<p>This is a jQuery plugin that turns a wrapper into an accordion. Accordions allow for collapsing of sections of content. Accordions are helpful for compressing a great deal of information into a small space and allowing users to focus on the topics they care about.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>###Includes</p>
+
+<ul>
+<li>Include the jQuery and accordionate scripts:</li>
+</ul>
+
+<pre><code class="```">&lt;script src=&quot;http://code.jquery.com/jquery-latest.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jquery.accordionate.js&quot;&gt;&lt;/script&gt;
+
+</code></pre>
+
+<ul>
+<li>Initialize <code>accordionate()</code> on the parent of the accordion panels:</li>
+</ul>
+
+<pre><code class="```">  $(&quot;.accordion&quot;).accordionate();
+
+</code></pre>
+
+<p>###Markup Structure</p>
+
+<p>The default configuration of the script assumes the following markup structure:</p>
+
+<ul>
+<li>.accordion</li>
+<li> li
+
+<ul>
+<li>.heading</li>
+<li>.panel</li>
+</ul></li>
+<li> li
+
+<ul>
+<li>.heading</li>
+<li>.panel</li>
+</ul></li>
+<li> &#8230;</li>
+</ul>
+
+<p>For example:</p>
+
+<pre><code>&lt;div class=&quot;accordion&quot;&gt;
+    &lt;li&gt;
+        &lt;h3 class=&quot;heading&quot;&gt;Heading 1&lt;/h3&gt;
+        &lt;div class=&quot;panel&quot;&gt;Panel 1 content&lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h3 class=&quot;heading&quot;&gt;Heading 2&lt;/h3&gt;
+        &lt;div class=&quot;panel&quot;&gt;Panel 2 content&lt;/div&gt;
+    &lt;/li&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>##Options</p>
+
+<p>###Classes</p>
+
+<p>The default markup structure can be customized by passing selector strings to accordionate using the <code>itemSelector</code>, <code>headingSelector</code>, and <code>panelSelector</code> options:</p>
+
+<pre><code>$(&quot;.collapsospander&quot;).accordionate({
+    itemSelector:    &quot;section&quot;,
+    headingSelector: &quot;section &gt; h5&quot;,
+    panelSelector:   &quot;h5 + div&quot;
+});
+</code></pre>
+
+<pre><code>&lt;div class=&quot;collapsospander&quot;&gt;
+    &lt;section&gt;
+        &lt;h5&gt;Heading 1&lt;/h5&gt;
+        &lt;div&gt;Panel 1 content&lt;/div&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+        &lt;h5&gt;Heading 2&lt;/h5&gt;
+        &lt;div&gt;Panel 2 content&lt;/div&gt;
+    &lt;/section&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The scope of these selectors is the parent element the plugin is initialized on, so you don&#8217;t have to worry about your selectors matching elements outside of the accordion.</p>
+
+<p>####Active Class</p>
+
+<p>The class that is applied to accordion items when their panels are activated is &#8220;active&#8221; by default. This can be customized via the <code>activeClass</code> option:</p>
+
+<pre><code>$(&quot;.accordion&quot;).accordionate({
+    activeClass: &quot;current&quot;
+});
+</code></pre>
+
+<p>####Toggler Class</p>
+
+<p>Accordionate creates and injects the anchor tags that function as the accordion togglers if they aren&#8217;t present. By default, these <code>&lt;a&gt;</code> tags have the class <code>toggler</code>. This can be customized with the <code>togglerClass</code> option.</p>
+
+<pre><code>$(&quot;.accordion&quot;).accordionate({
+    togglerClass: &quot;mrclicky&quot;
+});
+</code></pre>
+
+<p>###Interdependent panels</p>
+
+<p>Disable the ability to have multiple panels open at the same time by setting the <code>independentPanels</code> option to <code>false</code>:</p>
+
+<pre><code>$(&quot;.accordion&quot;).accordionate({
+    independentPanels: false
+});
+</code></pre>
+
+<p>###Auto-scroll</p>
+
+<p>Set <code>autoScroll</code> to <code>false</code> to disable the automatic scroll-to-panel effect.</p>
+
+<pre><code>$(&quot;.accordion&quot;).accordionate({
+    autoScroll: false
+});
+</code></pre>
+
+</body>
+</html>
+

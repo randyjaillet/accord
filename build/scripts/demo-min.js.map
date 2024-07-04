@@ -1,0 +1,1 @@
+{"version":3,"names":["$","accord"],"sources":["../../source/scripts/demo.js"],"sourcesContent":["$(\".accord\").accord();"],"mappings":"aAAAA,EAAE,WAAWC","ignoreList":[]}

@@ -3,19 +3,19 @@
 ** Turns an element into an accordion with sections that hide and reveal when 
 ** corresponding togglers are clicked.
 ** 
-** Element selectors are relative to the element .accordionate() is initialized on
+** Element selectors are relative to the element .accord() is initialized on
 ** and will not match descendants within the panels, only direct children.
 **
-** .accordionate should be called on a parent container of the accordion elements.
+** .accord should be called on a parent container of the accordion elements.
 ** 
 ** Options are explained inline below.
 ** 
 ** Default option set expects the following markup structure:
 **
-**		.accordion
-**			li
-**				.aHeading
-**				.aPanel
+**		.accord
+**			.accord-item
+**				.accord-heading
+**				.accord-panel
 **
 ** Example with customized class names and selectors:
 **
@@ -27,7 +27,7 @@
 **				h3
 **				div
 ** 
-**		$("#expandocollapser").accordionate(
+**		$("#expandocollapser").accord(
 **			{
 **				itemSelector: "section",
 **				headingSelector: "h3",
@@ -36,18 +36,18 @@
 **		);
 */
 
-$.fn.accordionate = function(options) {
+$.fn.accord = function(options) {
 
 	/* ----- Settings ----- */
 
 	var defaultOptions = {
 		independentPanels: true, // bool: Set to false to force closing other panels when one is activated.
 		autoScroll: true, // bool: Set to false to disable automatic scrolling to activated panels.
-		activeClass: "active", // str: The class that is applied to activated items. Not a full selector, so do not include a dot (.).
-		togglerClass: "toggler", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
-		itemSelector: "li", // str: Selector of the parent wrapper of each accordion section. Should be a full selector, ie, ".accordionItem" or "ul > li". This selector will only be used within the context of the individual accordion.
-		headingSelector: ".aHeading", // str: Selector of the panel heading into which the generated togglers will be injected. Should be a full selector, ie, ".injectionTarget" or "li > h3". This selector will only be used within the context of the individual accordion.
-		panelSelector: ".aPanel", // str: Selector of the area to be revealed/hidden. Should be a full selector, ie, ".collapsibleRegion" or "h3 + div". This selector will only be used within the context of the individual accordion.
+		activeClass: "accord-active", // str: The class that is applied to activated items. Not a full selector, so do not include a dot (.).
+		togglerClass: "accord-toggle", // str: The class that is applied to the generated A toggler. Not a full selector, so do not include a dot (.).
+		itemSelector: ".accord-item", // str: Selector of the parent wrapper of each accordion section. Should be a full selector, ie, ".accordionItem" or "ul > li". This selector will only be used within the context of the individual accordion.
+		headingSelector: ".accord-heading", // str: Selector of the panel heading into which the generated togglers will be injected. Should be a full selector, ie, ".injectionTarget" or "li > h3". This selector will only be used within the context of the individual accordion.
+		panelSelector: ".accord-panel", // str: Selector of the area to be revealed/hidden. Should be a full selector, ie, ".collapsibleRegion" or "h3 + div". This selector will only be used within the context of the individual accordion.
 	};
 	var settings = $.extend({}, defaultOptions, options);
 
@@ -106,7 +106,7 @@ $.fn.accordionate = function(options) {
 							existingAnchor.addClass(settings.togglerClass);
 						}
 					} else {
-						   $(settings.headingSelector, this).wrapInner(createToggler());
+						$(settings.headingSelector, this).wrapInner(createToggler());
 					}
 				   
 				}
