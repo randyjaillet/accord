@@ -1,1 +1,5 @@
-$(".accord").accord();
+$(".accord").accord(
+	{
+		"independentPanels": false
+	}
+);

@@ -1,1 +1,1 @@
-{"version":3,"names":["$","accord"],"sources":["../../source/scripts/demo.js"],"sourcesContent":["$(\".accord\").accord();"],"mappings":"aAAAA,EAAE,WAAWC","ignoreList":[]}
+{"version":3,"names":["$","accord","independentPanels"],"sources":["../../source/scripts/demo.js"],"sourcesContent":["$(\".accord\").accord(\n\t{\n\t\t\"independentPanels\": false\n\t}\n);"],"mappings":"aAAAA,EAAE,WAAWC,OACZ,CACCC,mBAAqB","ignoreList":[]}

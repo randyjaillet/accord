@@ -1,78 +1,53 @@
-$accent: #4A90E2;
-
 .accord {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+
+	$dur: .3s;
+
+	.insta-trans {
+		transition: none !important;
+	}
 	
 	.accord-item {
-		list-style: none;
 		overflow: hidden;
-		margin: 0;
-		padding: 0;
 	}
 
 	.accord-heading {
-		position: relative;
-		margin: 0;
-		font-weight: 100;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		cursor: pointer;
+	}
 
-		a {
-			display: block;
-			padding: 20px 30px 20px 10px;
-			color: $accent;
-			transition: all .2s linear;
-		
-			&:after {
-				display: block;
-				content: '';
-				position: absolute;
-				right: 10px;
-				height: 0;
-				width: 0;
-				font-size: 0;
-				line-height: 0;
-				border-width: 5px;
-				border-style: solid;
-				border-color: transparent;
-				border-top-color: $accent;
-				transform-origin: center 25%;
-				transition: all .1s linear;
-				top: calc(50% - 5px);
-			}
-			
-			&:focus,
-			&:hover {
-				background: rgba($accent, .05);
-				transition: all .2s linear;
-			}
+	.accord-chevron {
+		transition: transform $dur linear;
+	}
 
+	.accord-panel {
+
+		&.revealed {
+			height: auto;
+			overflow: hidden;
+			opacity: 1;
+			transition-property: height, opacity, margin;
+			transition-duration: $dur;
+			transition-timing-function: linear;
+			transition-delay: 0s, $dur*.5, 0s;
+		}
+
+		&.concealed {
+			height: 0 !important;
+			margin: 0;
+			overflow: hidden;
+			opacity: 0;
+			transition-property: height, opacity, margin;
+			transition-duration: $dur;
+			transition-timing-function: linear;
+			transition-delay: 0s;
 		}
 
 	}
-
-	> .accord-item + .accord-item > .accord-heading {
-		border-top: 1px solid #DDD;
-	}
-
-	> .accord-panel {
-		padding: 20px 10px;
-	}
 		
-	.accord-item.active {
-	
-		> .accord-heading {
-
-			a {
-				color: black;
-				transition: all .2s linear;
-			
-				&:after {
-					border-top-color: black;
-					transform: scaley(-1);
-					transition: all .1s linear;
-				}
-			}
-		}
+	.accord-item:has( > .accord-panel.revealed) > .accord-heading > .accord-chevron {
+		transform: scaleY(-1);
 	}
 }

@@ -13,8 +13,14 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/build\/.gitignore",
+      "oF" : 1
+    },
+    "\/.vscode" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/build\/.vscode",
       "oF" : 0
     },
     "\/build" : {
@@ -52,6 +58,25 @@
       "oF" : 0,
       "oS" : 1
     },
+    "\/source\/scripts\/_jquery.accord.bak" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/build\/scripts\/_jquery.accord.bak",
+      "oF" : 0
+    },
+    "\/source\/scripts\/_jquery.ba-throttle-debounce.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 1,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/build\/scripts\/_jquery.ba-throttle-debounce-min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 1
+    },
     "\/source\/scripts\/demo.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -88,13 +113,35 @@
       "oS" : 0,
       "pg" : 0,
       "sct" : 0
+    },
+    "\/source\/styles\/demo.scss" : {
+      "aP" : 1,
+      "bl" : 1,
+      "co" : 1,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 1,
+      "oA" : 0,
+      "oAP" : "\/build\/styles\/demo.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
     }
   },
   "hooks" : [
 
   ],
   "manualImportLinks" : {
-
+    "\/source\/scripts\/jquery.accord.js" : [
+      {
+        "followForSyntaxChecking" : 1,
+        "linkedFileAbbreviatedPath" : "\/source\/scripts\/_jquery.ba-throttle-debounce.js",
+        "position" : 0,
+        "type" : 0
+      }
+    ]
   },
   "projectAttributes" : {
     "creationDate" : 741754338.42044795,
@@ -102,7 +149,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "brackets-koamaru",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 741755746.13981605
+    "lastBuiltDate" : 741828747.87506402
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
@@ -406,7 +453,7 @@
       "NODE_ENV:::production"
     ],
     "esLintConfigFileHandlingType" : 0,
-    "esLintECMAVersion" : 7,
+    "esLintECMAVersion" : 13,
     "esLintEnvironmentsMask" : 8193,
     "esLintRules" : {
       "accessor-pairs" : {
