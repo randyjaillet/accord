@@ -114,9 +114,9 @@ class Accord {
 
 		this.a.on(
 			"click",
-			".accord-heading",
+			this.settings.headingSelector,
 			e => {
-				const $panel = $(e.target.closest(".accord-heading")).next(".accord-panel");
+				const $panel = $(e.target.closest(this.settings.headingSelector)).next(this.settings.panelSelector);
 				this.togglePanel($panel);
 			}
 		);
@@ -139,7 +139,7 @@ class Accord {
 				/* SPACE */
 				if (e.which == 32 || e.which == 13) {
 					e.preventDefault();
-					this.togglePanel($(e.target).nextAll(".accord-panel"));
+					this.togglePanel($(e.target).nextAll(this.settings.panelSelector));
 				}
 
 			}
