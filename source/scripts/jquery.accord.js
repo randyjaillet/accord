@@ -196,14 +196,15 @@ class Accord {
 					);
 
 				} else {
-					$panel.addClass("insta-trans");
+					const $item = $panel.closest(this.settings.itemSelector);
+					$item.addClass("insta-trans");
 					$panel.removeClass("concealed");
 					// Force redraw so browsers don't skip the transition
 					window.getComputedStyle($panel.get(0)).top;
 					$panel.addClass("revealed");
 					// Force redraw so browsers don't skip the transition
 					window.getComputedStyle($panel.get(0)).top;
-					$panel.removeClass("insta-trans");
+					$item.removeClass("insta-trans");
 				}
 
 			}
@@ -256,7 +257,8 @@ class Accord {
 					);
 
 				} else {
-					$panel.addClass("insta-trans");
+					const $item = $panel.closest(this.settings.itemSelector);
+					$item.addClass("insta-trans");
 					// Force redraw so browsers don't skip the transition
 					window.getComputedStyle($panel.get(0)).top;
 					$panel.removeClass("revealed");
@@ -265,7 +267,7 @@ class Accord {
 					$panel.addClass("concealed");
 					// Force redraw so browsers don't skip the transition
 					window.getComputedStyle($panel.get(0)).top;
-					$panel.removeClass("insta-trans");
+					$item.removeClass("insta-trans");
 				}
 
 			}

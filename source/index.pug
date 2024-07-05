@@ -2,16 +2,8 @@ doctype html
 html(lang="en")
 
 	head
-		meta(charset="UTF-8")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
-
-		link(rel="preconnect" href="https://fonts.googleapis.com")
-		link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
-		link(href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Parisienne&display=swap" rel="stylesheet")
-		link(href="styles/accord.css" rel="stylesheet")
-		link(href="styles/demo.css" rel="stylesheet")
-
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		include includes/_meta
+		include includes/_assets-head
 
 		title Accord
 
@@ -43,5 +35,4 @@ html(lang="en")
 				.accord-heading What is Node JS?
 				.accord-panel Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user's web browser. Consequently, Node.js represents a "JavaScript everywhere" paradigm
 
-		script(src="scripts/jquery.accord-min.js")
-		script(src="scripts/demo-min.js")
+		include includes/_assets-end

@@ -1,8 +1,9 @@
 .accord {
 
-	$dur: .3s;
+	$dur: .25s;
 
-	.insta-trans {
+	.insta-trans,
+	.insta-trans * {
 		transition: none !important;
 	}
 	
