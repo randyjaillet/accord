@@ -88,8 +88,8 @@ textarea:not([rows]) {
 
 
 
-$hPad: 1.2em;
-$vMarg: 1.2em;
+$hPad: 1.5em;
+$vMarg: 1.35em;
 $accent: #48B;
 $radius: 1em;
 
@@ -101,7 +101,7 @@ body {
 	align-items: center;
 	min-height: 100vh;
 	margin: 0;
-	font: 200 14px/1.35 "Open Sans",sans-serif;
+	font: 200 14px/1.5 "Open Sans",sans-serif;
 	background-color: #F0F0F0;
 }
 
