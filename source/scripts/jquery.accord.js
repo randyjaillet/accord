@@ -94,8 +94,16 @@ class Accord {
 		// ANCHOR Markup
 		//
 
+		// Why are we measuring again after one second? Custom fonts popping in
+		// can change the length of text and thus the height of the panels.
+		// REVIEW More elegant way to do this?
 		this.#measurePanels(this.panels);
-		// this.hidePanels(this.panels, true);
+		setTimeout(
+			() => {
+				this.#measurePanels(this.panels);
+			}, 1000
+		);
+
 		Accord.#injectChevrons(this.headings);
 		this.headings.attr("tabindex", "0");
 
